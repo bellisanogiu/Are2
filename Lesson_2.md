@@ -30,7 +30,7 @@ pythonLines= lines.filter(lambda line: "Python" in line)
 Note that filter does not change lines. It returns a pointer to a new RDD
 
 ```python
-inputRDD = sc.textFile(“log.txt”)
+inputRDD = sc.textFile("log.txt")
 errorsRDD = inputRDD.filter(lambda x: "error" in x) 
 warningsRDD = inputRDD.filter(lambda x: "warning" in x) 
 badLinesRDD = errorsRDD.union(warningsRDD) 
