@@ -1,4 +1,3 @@
-#test
 
 # Programming with RDDs
 
@@ -13,7 +12,7 @@
 
 - Users create RDDs in two ways:
  - By loading an external dataset sc.textFile(“etc.”)
- - By distributing a collection  of objects in their driver program
+ - By distributing a collection of objects in their driver program
 
 - Once created RDDs has 2 types of operations:
  - Transformations  (construct  a new RDD from a previous one)
@@ -25,11 +24,13 @@
 One common transformation is to filter data that matches a predicate
 
 ```python
-lines = sc.textFile("README.md") 
+lines = sc.textFile("README.md") # Create an RDD called lines
 pythonLines= lines.filter(lambda line: "Python" in line) 
 ```
 
 Note that filter does not change lines. It returns a pointer to a new RDD
+
+In Examples the variable called lines is an RDD, created here from a text file on our local machine. We can run various parallel operations on the RDD, such as counting the number of elements in the dataset (here, lines of text in the file) or printing the first one.
 
 ```python
 inputRDD = sc.textFile("log.txt")
@@ -55,22 +56,17 @@ print "Here are 10 examples:"
 for line in badLinesRDD.take(10): 
 print line
 ```
-RDDs have a collect method to retrieve  the entire RDD. To use collect the 
-entire dataset must fit in memory on a single machine. It cant be used on 
-large dataset. When they are too big, they cannot be collected but are written 
-on a distributed storage system such as HDFS. RDD can be saved with 
-methods such as saveAsTextFile()  or saveAsSequenceFile()
+RDDs have a collect method to retrieve  the entire RDD. To use collect the entire dataset must fit in memory on a single machine. It cant be used on large dataset. When they are too big, they cannot be collected but are written on a distributed storage system such as HDFS. RDD can be saved with methods such as saveAsTextFile() or saveAsSequenceFile()
 
 
 # Lazy Evaluation
 
-Spark computes RDDs in a lazy fashion, that is the first time they are used in an action. This approach makes sense when working with Big Data. In the example `lines = sc.textFile(...)`, Spark does not load and store all the lines. With the first action (filter) it prunes a lot of information.Calling the method `first()`, Spark scans the file until it finds the first matching line; it does not read the whole file.
+Spark computes RDDs in a lazy fashion, that is the first time they are used in an action. This approach makes sense when working with Big Data. In the example `lines = sc.textFile(...)`, Spark does not load and store all the lines. With the first action (filter) it prunes a lot of information. Calling the method `first()`, Spark scans the file until it finds the first matching line; it does not read the whole file.
 
 
 # Persist
 
-RDDs are recomputedeach time there is an action on them. If we wantto reuse RDD in multiple actions, we can use `RDD.persist()`. After computing the first time, Spark will store the RDD contents in memory (partitioned across the cluster) and reuse them in future actions. `unpersist()` is to remove them from 
-cache Persisting  RDDs on disk instead of memory is also possible. We will use `persist()` to load a subset of our data into memory and query it repeatedly. E.g.
+RDDs are recomputed each time there is an action on them. If we want to reuse RDD in multiple actions, we can use `RDD.persist()`. After computing the first time, Spark will store the RDD contents in memory (partitioned across the cluster) and reuse them in future actions. `unpersist()` is to remove them from cache Persisting  RDDs on disk instead of memory is also possible. We will use `persist()` to load a subset of our data into memory and query it repeatedly. E.g.
 
 ```python
 pythonLines.persist()
@@ -96,7 +92,8 @@ Load tagged-train.tsv in two RDDs. One persists and see time of `count()`. The o
 
 In Python
 
-```python
+```
+python
 word = rdd.filter(lambda s: "error" in s) 
 def containsError(s): 
 return "error" in s 
@@ -105,9 +102,9 @@ word = rdd.filter(containsError)
 
 ## Common Transformations and Actions
 
-`map()` and `filter()` are the two most common.
-`map()` takes in a function  and applies it to each element in the RDD with the result of the function being the new value of each element in the resulting RDD. Its return type does not have to be the same as its input type.
-`filter()` takes in a function and returns a RDD that only passes the filter
+- `map()` and `filter()` are the two most common.
+- `map()` takes in a function and applies it to each element in the RDD with the result of the function being the new value of each element in the resulting RDD. Its return type does not have to be the same as its input type.
+- `filter()` takes in a function and returns a RDD that only passes the filter
 
 
 # Example map() e flatMap()
