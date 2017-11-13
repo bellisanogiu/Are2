@@ -89,4 +89,19 @@ You need to pass 2 parameters (cluster URL and application name) `sys.exit()` or
 - Set up your own Java and Scala environment to launch standalone programs
 - Next time we’ll run Hello worlds standalone programs written by you.
 
+# Appunti miei
+- Spark is a cluster computing platform
 
+- Spark extends the popular MapReduce model to efficiently support more types of computations, including interactive queries and stream processing.
+
+- Spark offers for speed is the ability to run computations in memory, but the system is also more efficient than MapReduce for complex applications running on disk
+
+- Spark is designed to be highly accessible, offering simple APIs in Python, Java, Scala, and SQL, and rich built-in libraries. It also integrates closely with other Big Dat tools. In particular, Spark can run in Hadoop clusters and access any Hadoop data source, including Cassandra.
+
+#Spark Core 
+contains the basic functionality of Spark, including components for task scheduling, memory management, fault recovery, interacting with storage systems,
+and more. Spark Core is also home to the API that defines resilient distributed data‐sets (RDDs), which are Spark’s main programming abstraction. RDDs represent a collection of items distributed across many compute nodes that can be manipulated in parallel. Spark Core provides many APIs for building and manipulating these collections.
+
+#Storage
+Spark can create distributed datasets from any file stored in the Hadoop distributed filesystem (HDFS) or other storage systems supported by the Hadoop APIs (including your local filesystem, Amazon S3, Cassandra, Hive, HBase, etc.). It’s important to
+remember that Spark does not require Hadoop;
