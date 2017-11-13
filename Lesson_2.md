@@ -126,18 +126,20 @@ Common Transformations and Actions. As we’ve discussed, RDDs support two types
 - Transformations are operations on RDDs that return a new RDD.
 
 - Many transformations are element-wise; that is, they work on one element at a time; but this is not true for all transformations.
-```
-#filter transformation
+
+```#filter transformation
 inputRDD = sc.textFile("log.txt")
 errorsRDD = inputRDD.filter(lambda x: "error" in x)
 ```
 Note that the filter() operation does not mutate the existing inputRDD. Instead, itcreturns a pointer to an entirely new RDD. inputRDD can still be reused later in the program—for instance, to search for other words. In fact, let’s use inputRDD again to search for lines with the word warning in them. Then, we’ll use another transformation, union(), to print out the number of lines that contained either error or warning.
+
 ```
 #union() transformation in Python
 errorsRDD = inputRDD.filter(lambda x: "error" in x)
 warningsRDD = inputRDD.filter(lambda x: "warning" in x)
 badLinesRDD = errorsRDD.union(warningsRDD)
 ```
+- union() is a bit different than filter(), in that it operates on two RDDs instead of one. Transformations can actually operate on any number of input RDDs.
 
 - **As an example**, suppose that we have a logfile, log.txt, with a number of messages, and we want to select only the error messages. We can use the filter() transformation seen before.
 
@@ -160,7 +162,6 @@ words.first() # returns "hello"
 # Pseudo set operations
 
 RDDs supports union, intersection  even when RDDs are not properly set. Union will contain duplicates if any. Intersection  removes  duplicates. Performances  of intersections  are worst.
-
 
 # Pseudo set operations
 
