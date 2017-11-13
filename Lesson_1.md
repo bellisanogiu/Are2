@@ -98,11 +98,11 @@ You need to pass 2 parameters (cluster URL and application name) `sys.exit()` or
 
 - Spark is designed to be highly accessible, offering simple APIs in Python, Java, Scala, and SQL, and rich built-in libraries. It also integrates closely with other Big Dat tools. In particular, Spark can run in Hadoop clusters and access any Hadoop data source, including Cassandra.
 
-#Spark Core 
+# Spark Core 
 contains the basic functionality of Spark, including components for task scheduling, memory management, fault recovery, interacting with storage systems,
 and more. Spark Core is also home to the API that defines resilient distributed data‐sets (RDDs), which are Spark’s main programming abstraction. RDDs represent a collection of items distributed across many compute nodes that can be manipulated in parallel. Spark Core provides many APIs for building and manipulating these collections.
 
-#SPark core concepts
+# SPark core concepts
 - At a high level, every Spark application consists of a driver program that launches various parallel operations on a cluster. 
 - The driver program contains your application’s main function and defines distributed datasets on the cluster, then applies operations to them. 
 - In the preceding examples, the driver program was the Spark shell itself, and you could just type in the operations you wanted to run.
@@ -118,15 +118,15 @@ sc
 
 - To run these operations, driver programs typically manage a number of nodes called **executors**. For example, if we were running the count() operation on a cluster, different machines might count lines in different ranges of the file. Because we just ran the Spark shell locally, it executed all its work on a single machine—but you can connect the same shell to a cluster to analyze data in parallel.
 
-#Storage
+# Storage
 Spark can create distributed datasets from any file stored in the Hadoop distributed filesystem (HDFS) or other storage systems supported by the Hadoop APIs (including your local filesystem, Amazon S3, Cassandra, Hive, HBase, etc.). It’s important to
 remember that Spark does not require Hadoop;
 
-#Standalone Applications
+# Standalone Applications
 - Apart from running interactively, Spark can be linked into standalone applications in either Java, Scala, or Python. The main difference from using it in the shell is that you need to initialize your own SparkContext.
 Example:
 ```
-#Running a Python script
+# Running a Python script
 bin/spark-submit my_script.py
 ```
 - Initializing a SparkContext: Once you have linked an application to Spark, you need to import the Spark packages in your program and create a SparkContext. You do so by first creating a SparkConf object to configure your application, and then building a SparkContext for it.
